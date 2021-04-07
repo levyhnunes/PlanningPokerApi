@@ -1,6 +1,6 @@
-﻿namespace PlanningPoker.Api.Models
+﻿namespace PlanningPoker.Api.ViewModels
 {
-    public class User
+    public class PlayerViewModel
     {
         public string Name { get; set; }
 
