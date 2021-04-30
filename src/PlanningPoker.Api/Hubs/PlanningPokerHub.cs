@@ -25,6 +25,17 @@ namespace PlanningPoker.Api.Hubs
             if (player != null)
             {
                 _context.Remove(player);
+
+                var nextAdm = _context.Players
+                    .FirstOrDefault(p => p.RoomId == player.RoomId && p.Id != player.Id && ConnectedPlayer.ConnectedIds.Contains(p.ConnectionId));
+
+                if (nextAdm != null)
+                {
+                    nextAdm.IsAdmin = true;
+
+                    Clients.All.SendAsync("ReceivePlayer", nextAdm);
+                }
+
                 _context.SaveChanges();
             }
 
