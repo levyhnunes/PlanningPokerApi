@@ -9,6 +9,8 @@ namespace PlanningPoker.Api.Data
         {
         }
 
+        public DbSet<Room> Rooms { get; set; }
+
         public DbSet<Player> Players { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -16,6 +18,15 @@ namespace PlanningPoker.Api.Data
             builder.Entity<Player>().HasKey(m => m.Id);
 
             base.OnModelCreating(builder);
+        }
+
+        public void InitializeDatabase()
+        {
+            Database.Migrate();
+
+            Rooms.Add(new Room() { Reveal = false });
+
+            SaveChanges();
         }
     }
 }

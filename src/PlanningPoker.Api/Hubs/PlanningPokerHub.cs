@@ -19,7 +19,7 @@ namespace PlanningPoker.Api.Hubs
         public override Task OnDisconnectedAsync(Exception exception)
         {
             string clientconnecetionId = Context.ConnectionId;
-            //RoomController.users.Remove(clientconnecetionID);
+            ConnectedPlayer.ConnectedIds.Remove(clientconnecetionId);
             var player = _context.Players.FirstOrDefault(u => u.ConnectionId.Equals(clientconnecetionId));
 
             if (player != null)

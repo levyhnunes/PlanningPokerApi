@@ -66,6 +66,12 @@ namespace PlanningPoker.Api
                 endpoints.MapControllers();
                 endpoints.MapHub<PlanningPokerHub>("/planningPokerHub");
             });
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<PlanningPokerContext>();
+                context.InitializeDatabase();
+            }
         }
     }
 }
